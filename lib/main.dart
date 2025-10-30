@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:t_posture_gym/core/design_system/atoms/app_colors.dart';
-import 'package:t_posture_gym/features/auth/presentation/pages/login_page.dart';
+import 'package:t_posture_gym/features/auth/pages/login_page.dart';
 
 void main() {
   runApp(const MyApp());

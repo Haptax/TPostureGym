@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:t_posture_gym/core/design_system/atoms/app_colors.dart';
 import 'package:t_posture_gym/core/design_system/atoms/app_text_styles.dart';
 import 'package:t_posture_gym/core/design_system/molecules/custom_textfield.dart';
 import 'package:t_posture_gym/core/design_system/molecules/primary_button.dart';
@@ -23,16 +22,19 @@ class SignupPage extends StatelessWidget {
                 child: Text('Registro', style: AppTextStyles.heading1),
               ),
               const SizedBox(height: 32),
-              
+
               const CustomTextField(label: 'Nombre completo'),
               const SizedBox(height: 24),
               const CustomTextField(label: 'Correo electrónico'),
               const SizedBox(height: 24),
               const CustomTextField(label: 'Contraseña', isPassword: true),
               const SizedBox(height: 24),
-              const CustomTextField(label: 'Confirmar contraseña', isPassword: true),
+              const CustomTextField(
+                label: 'Confirmar contraseña',
+                isPassword: true,
+              ),
               const SizedBox(height: 32),
-              
+
               PrimaryButton(
                 text: 'Crear cuenta',
                 onPressed: () {
@@ -41,9 +43,8 @@ class SignupPage extends StatelessWidget {
                 },
               ),
               const SizedBox(height: 24),
-              
+
               // Aquí iría el "O regístrate con" y botón de Google
-              
               const SizedBox(height: 40),
               _buildFooter(context),
             ],

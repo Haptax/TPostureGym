@@ -3,7 +3,7 @@ import 'package:t_posture_gym/core/design_system/atoms/app_colors.dart';
 import 'package:t_posture_gym/core/design_system/atoms/app_text_styles.dart';
 import 'package:t_posture_gym/core/design_system/molecules/custom_textfield.dart';
 import 'package:t_posture_gym/core/design_system/molecules/primary_button.dart';
-import 'package:t_posture_gym/features/auth/presentation/pages/signup_page.dart';
+import 'package:t_posture_gym/features/auth/pages/signup_page.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -19,7 +19,7 @@ class LoginPage extends StatelessWidget {
             children: [
               // Placeholder para la imagen de fondo como en tu diseño
               Container(
-                height: 300, 
+                height: 300,
                 decoration: const BoxDecoration(
                   // Aquí podrías poner la imagen del hombre con la pesa
                   // color: Colors.grey, // Temporal
@@ -28,18 +28,21 @@ class LoginPage extends StatelessWidget {
                 child: Text('Iniciar sesión', style: AppTextStyles.heading1),
               ),
               const SizedBox(height: 32),
-              
+
               const CustomTextField(label: 'Correo electrónico'),
               const SizedBox(height: 24),
               const CustomTextField(label: 'Contraseña', isPassword: true),
               const SizedBox(height: 16),
-              
+
               Align(
                 alignment: Alignment.centerRight,
-                child: Text('¿Olvidaste tu contraseña?', style: AppTextStyles.textLink),
+                child: Text(
+                  '¿Olvidaste tu contraseña?',
+                  style: AppTextStyles.textLink,
+                ),
               ),
               const SizedBox(height: 32),
-              
+
               PrimaryButton(
                 text: 'Iniciar sesión',
                 onPressed: () {
@@ -47,13 +50,12 @@ class LoginPage extends StatelessWidget {
                 },
               ),
               const SizedBox(height: 24),
-              
+
               _buildDivider(),
               const SizedBox(height: 24),
-              
+
               // Aquí iría el botón de "Continuar con Google"
               // Por ahora, un placeholder
-              
               const SizedBox(height: 40),
               _buildFooter(context),
             ],

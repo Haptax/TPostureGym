@@ -29,6 +29,7 @@ flutter:
   # --- AÑADE TUS ASSETS (IMÁGENES) ---
   assets:
     - assets/images/ # Declara la carpeta
+    - assets/images/FondoLog.jpg
 
   # --- AÑADE TUS FUENTES ---
   fonts:
