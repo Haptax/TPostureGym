@@ -1,69 +1,236 @@
 import 'package:flutter/material.dart';
-import 'package:t_posture_gym/core/design_system/atoms/app_text_styles.dart';
-import 'package:t_posture_gym/core/design_system/molecules/custom_textfield.dart';
-import 'package:t_posture_gym/core/design_system/molecules/primary_button.dart';
+import 'package:flutter/services.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
+import '../../../core/design_system/atoms/app_colors.dart';
+import '../widgets/auth_text_field.dart';
+import '../widgets/auth_logo.dart';
+import '../widgets/auth_button.dart';
+import '../widgets/auth_divider.dart';
 
-class SignupPage extends StatelessWidget {
+class SignupPage extends StatefulWidget {
   const SignupPage({super.key});
+
+  @override
+  State<SignupPage> createState() => _SignupPageState();
+}
+
+class _SignupPageState extends State<SignupPage> {
+  bool _acceptTerms = false;
+
+  @override
+  void initState() {
+    super.initState();
+    // Bloquear orientación a portrait
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
+  }
+
+  @override
+  void dispose() {
+    // Restaurar orientaciones
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+      DeviceOrientation.landscapeLeft,
+      DeviceOrientation.landscapeRight,
+    ]);
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(24.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Placeholder para la imagen de fondo
-              Container(
-                height: 300,
-                alignment: Alignment.bottomLeft,
-                child: Text('Registro', style: AppTextStyles.heading1),
+      backgroundColor: AppColors.darkBackground,
+      body: Stack(
+        children: [
+          // Imagen de fondo (55% superior)
+          Positioned(
+            top: 0,
+            left: 0,
+            right: 0,
+            height: MediaQuery.of(context).size.height * 0.55,
+            child: Container(
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/images/FondoLog.jpg'),
+                  fit: BoxFit.cover,
+                ),
               ),
-              const SizedBox(height: 32),
-
-              const CustomTextField(label: 'Nombre completo'),
-              const SizedBox(height: 24),
-              const CustomTextField(label: 'Correo electrónico'),
-              const SizedBox(height: 24),
-              const CustomTextField(label: 'Contraseña', isPassword: true),
-              const SizedBox(height: 24),
-              const CustomTextField(
-                label: 'Confirmar contraseña',
-                isPassword: true,
+              child: Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      Colors.black.withOpacity(0.3),
+                      Colors.black.withOpacity(0.7),
+                    ],
+                  ),
+                ),
               ),
-              const SizedBox(height: 32),
-
-              PrimaryButton(
-                text: 'Crear cuenta',
-                onPressed: () {
-                  // TODO: Lógica de Registro
-                  // Navegar a la encuesta de onboarding
-                },
-              ),
-              const SizedBox(height: 24),
-
-              // Aquí iría el "O regístrate con" y botón de Google
-              const SizedBox(height: 40),
-              _buildFooter(context),
-            ],
+            ),
           ),
-        ),
+          // Fondo negro (45% inferior)
+          Positioned(
+            top: MediaQuery.of(context).size.height * 0.55,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            child: Container(color: AppColors.darkBackground),
+          ),
+          // Contenido
+          SafeArea(
+            child: SingleChildScrollView(
+              child: SizedBox(
+                height:
+                    MediaQuery.of(context).size.height -
+                    MediaQuery.of(context).padding.top,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                  child: Column(
+                    children: [
+                      const Spacer(),
+                      const AuthLogo(size: 100),
+                      const SizedBox(height: 20),
+                      const Text(
+                        'Registro',
+                        style: TextStyle(
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(height: 20),
+                      AuthTextField(
+                        hintText: 'Ingresa tu nombre',
+                        icon: PhosphorIconsRegular.user,
+                      ),
+                      const SizedBox(height: 12),
+                      AuthTextField(
+                        hintText: 'Correo electrónico',
+                        icon: PhosphorIconsRegular.envelope,
+                        keyboardType: TextInputType.emailAddress,
+                      ),
+                      const SizedBox(height: 12),
+                      AuthTextField(
+                        hintText: 'Contraseña',
+                        icon: PhosphorIconsRegular.lock,
+                        isPassword: true,
+                      ),
+                      const SizedBox(height: 12),
+                      AuthTextField(
+                        hintText: 'Confirmar contraseña',
+                        icon: PhosphorIconsRegular.lockKey,
+                        isPassword: true,
+                      ),
+                      const SizedBox(height: 12),
+                      _buildTermsCheckbox(),
+                      const SizedBox(height: 16),
+                      AuthButton(
+                        text: 'Crear cuenta',
+                        onPressed: () {},
+                        icon: PhosphorIconsRegular.userPlus,
+                      ),
+                      const SizedBox(height: 12),
+                      const AuthDivider(text: 'O regístrate con'),
+                      const SizedBox(height: 12),
+                      AuthButton(
+                        text: 'Continuar con Google',
+                        onPressed: () {},
+                        icon: PhosphorIconsRegular.googleLogo,
+                        isPrimary: false,
+                      ),
+                      const SizedBox(height: 12),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text(
+                            '¿Ya tienes cuenta? ',
+                            style: TextStyle(color: Colors.white, fontSize: 14),
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.pop(context);
+                            },
+                            child: const Text(
+                              'Inicia sesión',
+                              style: TextStyle(
+                                color: AppColors.primaryGreen,
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      const Spacer(),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
 
-  Widget _buildFooter(BuildContext context) {
+  Widget _buildTermsCheckbox() {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('¿Ya tienes cuenta? ', style: AppTextStyles.secondaryText),
-        GestureDetector(
-          onTap: () {
-            Navigator.pop(context); // Regresa a la pantalla de Login
-          },
-          child: Text('Inicia sesión', style: AppTextStyles.textLink),
+        SizedBox(
+          width: 24,
+          height: 24,
+          child: Checkbox(
+            value: _acceptTerms,
+            onChanged: (value) {
+              setState(() {
+                _acceptTerms = value ?? false;
+              });
+            },
+            activeColor: AppColors.primaryGreen,
+            side: BorderSide(color: Colors.grey[600]!, width: 2),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(4),
+            ),
+          ),
+        ),
+        const SizedBox(width: 12),
+        Expanded(
+          child: GestureDetector(
+            onTap: () {
+              setState(() {
+                _acceptTerms = !_acceptTerms;
+              });
+            },
+            child: RichText(
+              text: TextSpan(
+                style: const TextStyle(fontSize: 14, color: Colors.white),
+                children: [
+                  const TextSpan(text: 'Acepto los '),
+                  TextSpan(
+                    text: 'términos y condiciones',
+                    style: TextStyle(
+                      color: AppColors.primaryGreen,
+                      decoration: TextDecoration.underline,
+                    ),
+                  ),
+                  const TextSpan(text: ' y la '),
+                  TextSpan(
+                    text: 'política de privacidad',
+                    style: TextStyle(
+                      color: AppColors.primaryGreen,
+                      decoration: TextDecoration.underline,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
         ),
       ],
     );
