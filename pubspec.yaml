@@ -17,6 +17,7 @@ dependencies:
   # --- NUESTRAS DEPENDENCIAS ---
   go_router: ^14.2.0     # Para el manejo de rutas (navegación)
   google_fonts: ^6.2.1   # Para cargar fácilmente 'Space Grotesk'
+  phosphor_flutter: ^2.1.0  # Para los iconos de Phosphor
 
 dev_dependencies:
   flutter_test:

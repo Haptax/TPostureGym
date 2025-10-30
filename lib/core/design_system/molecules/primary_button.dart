@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import '../atoms/app_colors.dart';
 import '../atoms/app_text_styles.dart';
 
@@ -6,11 +7,7 @@ class PrimaryButton extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
 
-  const PrimaryButton({
-    super.key,
-    required this.text,
-    required this.onPressed,
-  });
+  const PrimaryButton({super.key, required this.text, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +22,18 @@ class PrimaryButton extends StatelessWidget {
           ),
         ),
         onPressed: onPressed,
-        child: Text(text, style: AppTextStyles.primaryButton),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              PhosphorIconsRegular.signIn,
+              color: AppColors.darkText,
+              size: 20,
+            ),
+            const SizedBox(width: 8),
+            Text(text, style: AppTextStyles.primaryButton),
+          ],
+        ),
       ),
     );
   }
